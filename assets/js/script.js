@@ -7,6 +7,8 @@ var tasksCompletedEl = document.querySelector("#tasks-completed");
 
 var taskIdCounter = 0;
 
+var tasks = [];
+
 var taskFormHandler = function(event) {
     event.preventDefault();
     var taskNameInput = document.querySelector("input[name='task-name']").value;
@@ -30,9 +32,10 @@ var taskFormHandler = function(event) {
     // no data attribute, so create object as normal and pass to createTaskEl function
     else {
         var taskDataObj = {
-        name: taskNameInput,
-        type: taskTypeInput
-        };
+            name: taskNameInput,
+            type: taskTypeInput,
+            status: "to do"
+          }
   
         createTaskEl(taskDataObj);
     }
@@ -55,6 +58,9 @@ var createTaskEl = function(taskDataObj) {
     var taskActionsEl = createTaskActions(taskIdCounter);
     listItemEl.appendChild(taskActionsEl);
     tasksToDoEl.appendChild(listItemEl);
+
+    taskDataObj.id = taskIdCounter;
+    tasks.push(taskDataObj);
   
     // increase task counter for next unique id
     taskIdCounter++;
